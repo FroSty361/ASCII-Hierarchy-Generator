@@ -1,4 +1,5 @@
 from .styles import AsciiHierarchyStyle, AsciiHierarchyEnvironmentStyle, AsciiHierarchyLayoutStyle, AsciiHierarchyContextStyle
+from .styles import AsciiHierarchyStylingUtils as styling
 
 class AsciiHierarchy:
     def __init__(self, name: str, root_node_name: str, style: AsciiHierarchyStyle | None, debug_mode: bool = False):
@@ -21,7 +22,9 @@ class AsciiHierarchy:
             return ascii_hierarchy
 
     def get_ascii_hierarchy(self) -> str:
-        ascii_hierarchy = f"{self.name}\n\n"
+        ascii_hierarchy = styling.get_environment_start(self.name, self.style.environment_style)
+
+        print(ascii_hierarchy)
 
         return ascii_hierarchy
 

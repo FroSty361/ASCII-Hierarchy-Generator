@@ -30,3 +30,137 @@ class AsciiHierarchyStyle:
     layout_style: AsciiHierarchyLayoutStyle = field(default_factory=AsciiHierarchyLayoutStyle)
 
     context_style: AsciiHierarchyContextStyle = field(default_factory=AsciiHierarchyContextStyle)
+
+class AsciiHierarchyStylingUtils:
+
+    # Ascii Hierarchy Environment
+
+    @staticmethod
+    def get_environment_start(text: str, environment_style: AsciiHierarchyEnvironmentStyle):
+        match environment_style:
+            case AsciiHierarchyEnvironmentStyle.TEXT_ENVIRONMENT_STYLE:
+                return f"{text}\n\n"
+            case AsciiHierarchyEnvironmentStyle.MARKDOWN_ENVIRONMENT_STYLE:
+                return f"# {text}\n\n```"
+            case AsciiHierarchyEnvironmentStyle.HTML_ENVIRONMENT_STYLE:
+                return f"<h1>{text}</h1>\n\n"
+            case _:
+                return f"{text}\n\n"
+
+    @staticmethod
+    def get_environment_end(text: str, environment_style: AsciiHierarchyEnvironmentStyle):
+        match environment_style:
+            case AsciiHierarchyEnvironmentStyle.TEXT_ENVIRONMENT_STYLE:
+                return ""
+            case AsciiHierarchyEnvironmentStyle.MARKDOWN_ENVIRONMENT_STYLE:
+                return "```"
+            case AsciiHierarchyEnvironmentStyle.HTML_ENVIRONMENT_STYLE:
+                return ""
+            case _:
+                return ""
+
+    @staticmethod
+    def get_environment_line(text: str, environment_style: AsciiHierarchyEnvironmentStyle):
+        match environment_style:
+            case AsciiHierarchyEnvironmentStyle.TEXT_ENVIRONMENT_STYLE:
+                return text
+            case AsciiHierarchyEnvironmentStyle.MARKDOWN_ENVIRONMENT_STYLE:
+                return text
+            case AsciiHierarchyEnvironmentStyle.HTML_ENVIRONMENT_STYLE:
+                return f"<p>{text}</p>"
+            case _:
+                return text
+
+    # Ascii Hierarchy Layout
+
+    @staticmethod
+    def get_layout_style_horizontal(layout_style: AsciiHierarchyLayoutStyle):
+        match layout_style:
+            case AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE:
+                return ""
+            case AsciiHierarchyLayoutStyle.BOX_LAYOUT_STYLE:
+                return "─"
+            case AsciiHierarchyLayoutStyle.ROUNDED_BOX_LAYOUT_STYLE:
+                return "─"
+            case AsciiHierarchyLayoutStyle.DOUBLE_LINE_LAYOUT_STYLE:
+                return "═"
+            case AsciiHierarchyLayoutStyle.PLUS_HYPHEN_LAYOUT_STYLE:
+                return "-"
+            case _:
+                return ""
+
+    @staticmethod
+    def get_layout_style_vertical(layout_style: AsciiHierarchyLayoutStyle):
+        match layout_style:
+            case AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE:
+                return ""
+            case AsciiHierarchyLayoutStyle.BOX_LAYOUT_STYLE:
+                return "│"
+            case AsciiHierarchyLayoutStyle.ROUNDED_BOX_LAYOUT_STYLE:
+                return "│"
+            case AsciiHierarchyLayoutStyle.DOUBLE_LINE_LAYOUT_STYLE:
+                return "║"
+            case AsciiHierarchyLayoutStyle.PLUS_HYPHEN_LAYOUT_STYLE:
+                return "|"
+            case _:
+                return ""
+
+    @staticmethod
+    def get_layout_style_top_corner(layout_style: AsciiHierarchyLayoutStyle):
+        match layout_style:
+            case AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE:
+                return ""
+            case AsciiHierarchyLayoutStyle.BOX_LAYOUT_STYLE:
+                return "┌"
+            case AsciiHierarchyLayoutStyle.ROUNDED_BOX_LAYOUT_STYLE:
+                return "╭"
+            case AsciiHierarchyLayoutStyle.DOUBLE_LINE_LAYOUT_STYLE:
+                return "╔"
+            case AsciiHierarchyLayoutStyle.PLUS_HYPHEN_LAYOUT_STYLE:
+                return "+"
+            case _:
+                return ""
+
+    @staticmethod
+    def get_layout_style_bottom_corner(layout_style: AsciiHierarchyLayoutStyle):
+        match layout_style:
+            case AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE:
+                return ""
+            case AsciiHierarchyLayoutStyle.BOX_LAYOUT_STYLE:
+                return "└"
+            case AsciiHierarchyLayoutStyle.ROUNDED_BOX_LAYOUT_STYLE:
+                return "╰"
+            case AsciiHierarchyLayoutStyle.DOUBLE_LINE_LAYOUT_STYLE:
+                return "╚"
+            case AsciiHierarchyLayoutStyle.PLUS_HYPHEN_LAYOUT_STYLE:
+                return "+"
+            case _:
+                return ""
+
+    @staticmethod
+    def get_layout_style_intersection(layout_style: AsciiHierarchyLayoutStyle):
+        match layout_style:
+            case AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE:
+                return ""
+            case AsciiHierarchyLayoutStyle.BOX_LAYOUT_STYLE:
+                return "├"
+            case AsciiHierarchyLayoutStyle.ROUNDED_BOX_LAYOUT_STYLE:
+                return "├"
+            case AsciiHierarchyLayoutStyle.DOUBLE_LINE_LAYOUT_STYLE:
+                return "╠"
+            case AsciiHierarchyLayoutStyle.PLUS_HYPHEN_LAYOUT_STYLE:
+                return "+"
+            case _:
+                return ""
+
+    # Ascii Hierarchy Context
+
+    @staticmethod
+    def get_context_name_ending(context_style: AsciiHierarchyContextStyle):
+        match context_style:
+            case AsciiHierarchyContextStyle.MINIMAL_CONTEXT_STYLE:
+                return ""
+            case AsciiHierarchyContextStyle.FOLDER_CONTEXT_STYLE:
+                return "/"
+            case _:
+                return ""
