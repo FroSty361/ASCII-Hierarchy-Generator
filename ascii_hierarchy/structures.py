@@ -110,6 +110,9 @@ class AsciiHierarchyNode:
         self._children.add(node)
 
     def has_node(self, node: AsciiHierarchyNode, surface_level: bool) -> bool:
+        if self == node:
+            return True
+
         if surface_level:
             return node in self._children
         else:

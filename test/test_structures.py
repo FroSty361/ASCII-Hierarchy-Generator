@@ -13,6 +13,5 @@ def test_node_is_in_hierarchy():
 
     assert ascii_hierarchy.node_is_in_hierarchy(root_child_one_child) == True
 
-
 if __name__ == "__main__":
     main()
