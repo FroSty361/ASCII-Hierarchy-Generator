@@ -22,11 +22,13 @@ class AsciiHierarchy:
             return ascii_hierarchy
 
     def get_ascii_hierarchy(self) -> str:
-        ascii_hierarchy = styling.get_environment_start(self.name, self.style.environment_style)
+        ascii_hierarchy_result = styling.get_environment_start(self.name, self.style.environment_style)
 
-        print(ascii_hierarchy)
+        ascii_hierarchy_result += f"{self.root_node.name}{styling.get_context_name_ending(self.style.context_style)}\n"
 
-        return ascii_hierarchy
+        ascii_hierarchy_result += self.root_node.get_ascii_children(self.style, "")
+
+        return ascii_hierarchy_result
 
     def get_stats(self) -> str:
         stats = f"{self.name}\n"
@@ -124,6 +126,46 @@ class AsciiHierarchyNode:
                     return True
 
         return False
+
+    def get_ascii_children(self, style: AsciiHierarchyStyle, result: str = "", depth: int = 1, starting: str = "") -> str:
+        _children = list(self._children)
+        amount = len(_children)
+        blank = "   "
+
+        vertical_style = styling.get_layout_style_vertical(style.layout_style)
+
+        for i in range(amount):
+            child_node = _children[i]
+
+            is_last = (i == amount - 1)
+
+            result += f"{starting}{blank}{styling.get_node_line(child_node.name, style, is_last, amount)}"
+
+            if hasattr(child_node, "_children") and len(child_node._children) > 0:
+                if not is_last:
+                    next_starting = starting + blank + vertical_style
+                else:
+                    next_starting = starting + blank + blank
+
+                result = child_node.get_ascii_children(style, result, depth + 1, next_starting)
+            else:
+                if is_last:
+                    starting = starting.replace(blank, "", 1)
+
+        return result
+
+    def get_ascii_local_children(self, style: AsciiHierarchyStyle) -> str:
+        result = ""
+
+        _children = list(self._children)
+        amount = len(_children)
+
+        for i in range(amount):
+            child_node_name = _children[i].name
+
+            result += "   " + styling.get_node_line(child_node_name, style, i, amount)
+
+        return result
 
     # Properties
 

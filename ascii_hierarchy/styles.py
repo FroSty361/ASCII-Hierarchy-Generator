@@ -36,7 +36,7 @@ class AsciiHierarchyStylingUtils:
     # Ascii Hierarchy Environment
 
     @staticmethod
-    def get_environment_start(text: str, environment_style: AsciiHierarchyEnvironmentStyle):
+    def get_environment_start(text: str, environment_style: AsciiHierarchyEnvironmentStyle | None):
         match environment_style:
             case AsciiHierarchyEnvironmentStyle.TEXT_ENVIRONMENT_STYLE:
                 return f"{text}\n\n"
@@ -48,7 +48,7 @@ class AsciiHierarchyStylingUtils:
                 return f"{text}\n\n"
 
     @staticmethod
-    def get_environment_end(text: str, environment_style: AsciiHierarchyEnvironmentStyle):
+    def get_environment_end(text: str, environment_style: AsciiHierarchyEnvironmentStyle | None):
         match environment_style:
             case AsciiHierarchyEnvironmentStyle.TEXT_ENVIRONMENT_STYLE:
                 return ""
@@ -60,7 +60,7 @@ class AsciiHierarchyStylingUtils:
                 return ""
 
     @staticmethod
-    def get_environment_line(text: str, environment_style: AsciiHierarchyEnvironmentStyle):
+    def get_environment_line(text: str, environment_style: AsciiHierarchyEnvironmentStyle | None):
         match environment_style:
             case AsciiHierarchyEnvironmentStyle.TEXT_ENVIRONMENT_STYLE:
                 return text
@@ -74,7 +74,7 @@ class AsciiHierarchyStylingUtils:
     # Ascii Hierarchy Layout
 
     @staticmethod
-    def get_layout_style_horizontal(layout_style: AsciiHierarchyLayoutStyle):
+    def get_layout_style_horizontal(layout_style: AsciiHierarchyLayoutStyle | None):
         match layout_style:
             case AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE:
                 return ""
@@ -90,7 +90,7 @@ class AsciiHierarchyStylingUtils:
                 return ""
 
     @staticmethod
-    def get_layout_style_vertical(layout_style: AsciiHierarchyLayoutStyle):
+    def get_layout_style_vertical(layout_style: AsciiHierarchyLayoutStyle | None):
         match layout_style:
             case AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE:
                 return ""
@@ -106,7 +106,7 @@ class AsciiHierarchyStylingUtils:
                 return ""
 
     @staticmethod
-    def get_layout_style_top_corner(layout_style: AsciiHierarchyLayoutStyle):
+    def get_layout_style_top_corner(layout_style: AsciiHierarchyLayoutStyle | None):
         match layout_style:
             case AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE:
                 return ""
@@ -122,7 +122,7 @@ class AsciiHierarchyStylingUtils:
                 return ""
 
     @staticmethod
-    def get_layout_style_bottom_corner(layout_style: AsciiHierarchyLayoutStyle):
+    def get_layout_style_bottom_corner(layout_style: AsciiHierarchyLayoutStyle | None):
         match layout_style:
             case AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE:
                 return ""
@@ -138,7 +138,7 @@ class AsciiHierarchyStylingUtils:
                 return ""
 
     @staticmethod
-    def get_layout_style_intersection(layout_style: AsciiHierarchyLayoutStyle):
+    def get_layout_style_intersection(layout_style: AsciiHierarchyLayoutStyle | None):
         match layout_style:
             case AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE:
                 return ""
@@ -156,7 +156,7 @@ class AsciiHierarchyStylingUtils:
     # Ascii Hierarchy Context
 
     @staticmethod
-    def get_context_name_ending(context_style: AsciiHierarchyContextStyle):
+    def get_context_name_ending(context_style: AsciiHierarchyContextStyle | None):
         match context_style:
             case AsciiHierarchyContextStyle.MINIMAL_CONTEXT_STYLE:
                 return ""
@@ -164,3 +164,20 @@ class AsciiHierarchyStylingUtils:
                 return "/"
             case _:
                 return ""
+
+    # Hierarchy Styling
+
+    @staticmethod
+    def get_node_line(node_name: str, style: AsciiHierarchyStyle, is_last: bool, parent_child_amount: int) -> str:
+        result = ""
+
+        pipe = AsciiHierarchyStylingUtils.get_layout_style_horizontal(style.layout_style)
+        context_name_ending = AsciiHierarchyStylingUtils.get_context_name_ending(style.context_style)
+        layout_start = AsciiHierarchyStylingUtils.get_layout_style_intersection(style.layout_style)
+
+        if is_last:
+            layout_start = AsciiHierarchyStylingUtils.get_layout_style_bottom_corner(style.layout_style)
+
+        result += f"{layout_start}{pipe}{pipe}{node_name}{context_name_ending}\n"
+
+        return result

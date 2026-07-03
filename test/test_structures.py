@@ -1,6 +1,5 @@
 from ascii_hierarchy.structures import AsciiHierarchy, AsciiHierarchyNode
 
-
 def main():
     test_node_is_in_hierarchy()
 
