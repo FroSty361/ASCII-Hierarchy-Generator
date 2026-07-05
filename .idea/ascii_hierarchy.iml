@@ -4,6 +4,9 @@
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ascii_hierarchy/ascii_hierarchy_cli" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ascii_hierarchy/ascii_hierarchy_cli/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/ascii_hierarchy/ascii_hierarchy_core/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/.venv" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.14 (ascii_hierarchy)" jdkType="Python SDK" />

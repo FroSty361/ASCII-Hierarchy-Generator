@@ -4,24 +4,24 @@ from enum import Enum
 class AsciiHierarchyEnvironmentStyle(Enum):
     """" Guides how the output is written to be used in different environments """
 
-    TEXT_ENVIRONMENT_STYLE = "text_environment_style",
-    MARKDOWN_ENVIRONMENT_STYLE = "markdown_environment_style",
-    HTML_ENVIRONMENT_STYLE = "html_environment_style"
+    TEXT_ENVIRONMENT_STYLE = "text-env",
+    MARKDOWN_ENVIRONMENT_STYLE = "markdown-env",
+    HTML_ENVIRONMENT_STYLE = "html-env"
 
 class AsciiHierarchyLayoutStyle(Enum):
     """" Gives the style of the layout for the hierarchy """
 
-    MINIMAL_LAYOUT_STYLE = "minimal_layout_style",
-    BOX_LAYOUT_STYLE = "box_layout_layout_style",
-    ROUNDED_BOX_LAYOUT_STYLE = "rounded_box_layout_style",
-    DOUBLE_LINE_LAYOUT_STYLE = "double_line_layout_style",
-    PLUS_HYPHEN_LAYOUT_STYLE = "plus_hyphen_layout_style"
+    MINIMAL_LAYOUT_STYLE = "minimal",
+    BOX_LAYOUT_STYLE = "box",
+    ROUNDED_BOX_LAYOUT_STYLE = "rounded-box",
+    DOUBLE_LINE_LAYOUT_STYLE = "double-line",
+    PLUS_HYPHEN_LAYOUT_STYLE = "plus-hyphen"
 
 class AsciiHierarchyContextStyle(Enum):
     """" Adds more specific style based on the context of the hierarchy. For example, a folder hierarchy """
 
-    MINIMAL_CONTEXT_STYLE = "minimal_context_style",
-    FOLDER_CONTEXT_STYLE = "folder_context_style"
+    MINIMAL_CONTEXT_STYLE = "minimal",
+    FOLDER_CONTEXT_STYLE = "folder"
 
 @dataclass
 class AsciiHierarchyStyle:
@@ -181,3 +181,30 @@ class AsciiHierarchyStylingUtils:
         result += f"{layout_start}{pipe}{pipe}{node_name}{context_name_ending}\n"
 
         return result
+
+    # Helpers
+
+    @staticmethod
+    def get_style_from_stings(environment_style_str: str, layout_style_str: str, context_style_str: str) -> AsciiHierarchyStyle:
+        environment_style = AsciiHierarchyEnvironmentStyle.TEXT_ENVIRONMENT_STYLE
+        layout_style = AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE
+        context_style = AsciiHierarchyContextStyle.MINIMAL_CONTEXT_STYLE
+
+        try:
+            environment_style = AsciiHierarchyEnvironmentStyle(environment_style_str)
+        except ValueError:
+            environment_style = AsciiHierarchyEnvironmentStyle.TEXT_ENVIRONMENT_STYLE
+
+        try:
+            layout_style = AsciiHierarchyLayoutStyle(layout_style_str)
+        except ValueError:
+            layout_style = AsciiHierarchyLayoutStyle.MINIMAL_LAYOUT_STYLE
+
+        try:
+            context_style = AsciiHierarchyContextStyle(context_style_str)
+        except ValueError:
+            context_style = AsciiHierarchyContextStyle.MINIMAL_CONTEXT_STYLE
+
+        style = AsciiHierarchyStyle(environment_style, layout_style, context_style)
+
+        return style
